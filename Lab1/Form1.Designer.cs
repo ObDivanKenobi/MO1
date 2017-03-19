@@ -85,9 +85,9 @@
             this.tabPageBisection.Location = new System.Drawing.Point(4, 22);
             this.tabPageBisection.Name = "tabPageBisection";
             this.tabPageBisection.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBisection.Size = new System.Drawing.Size(702, 51);
+            this.tabPageBisection.Size = new System.Drawing.Size(702, 48);
             this.tabPageBisection.TabIndex = 0;
-            this.tabPageBisection.Text = "Метод бисекции";
+            this.tabPageBisection.Text = "Метод деления отрезка пополам";
             this.tabPageBisection.UseVisualStyleBackColor = true;
             // 
             // buttonBfind
@@ -142,7 +142,7 @@
             this.tabPageGoldenSection.Location = new System.Drawing.Point(4, 22);
             this.tabPageGoldenSection.Name = "tabPageGoldenSection";
             this.tabPageGoldenSection.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageGoldenSection.Size = new System.Drawing.Size(702, 51);
+            this.tabPageGoldenSection.Size = new System.Drawing.Size(702, 48);
             this.tabPageGoldenSection.TabIndex = 1;
             this.tabPageGoldenSection.Text = "Метод золотого сечения";
             this.tabPageGoldenSection.UseVisualStyleBackColor = true;

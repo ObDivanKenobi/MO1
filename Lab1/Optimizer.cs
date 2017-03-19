@@ -37,7 +37,8 @@ namespace Lab1
                     b = u2;
                     a = u1;
                 }
-            } while (Math.Abs(f(b) - f(a)) >= epsilon);
+
+            } while (Math.Abs(b - a - delta) > epsilon);
 
             double u = (b + a) / 2;
             return new Tuple<double, double>(u, f(u));
