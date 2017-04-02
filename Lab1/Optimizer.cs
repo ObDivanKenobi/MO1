@@ -80,11 +80,20 @@ namespace Lab1
             return new Tuple<double, double>(u, f(u));
         }
 
-        bool IsConvex(double u1, double u2, double u3)
+        bool IsConvex(double u1, double u2, double u3, out double w)
         {
+            w = double.NaN;
             double delta_minus = f(u1) - f(u2),
                    delta_plus = f(u3) - f(u2);
-            return delta_minus >= 0 && delta_plus >= 0 && delta_plus + delta_minus > 0;
+            if (delta_minus >= 0 && delta_plus >= 0 && delta_plus + delta_minus > 0)
+            {
+                w = u2 +
+                    (Math.Pow((u3 - u2), 2) * delta_minus - Math.Pow((u2 - u1), 2) * delta_plus)
+                    /
+                    (2 * ((u3 - u2) * delta_minus + (u2 - u1) * delta_plus));
+                return true;
+            }
+            return false;
         }
 
         public Tuple<double, double> ParabolicMethod(double a, double b, double epsilon)
@@ -107,29 +116,28 @@ namespace Lab1
                     mult = -1;
                 }
                 bool found = false;
+                double w = double.NaN;
                 for (int i = 2; !found; ++i)
                 {
                     double u_i = u[i - 1] + mult * h;
                     if (u_i > b || u_i < a) break;
                     u.Add(u_i);
                     I.Add(f(u[i]));
-                    found = IsConvex(u[i - 2], u[i - 1], u[i]);
+                    found = IsConvex(u[i - 2], u[i - 1], u[i], out w);
                 }
 
-                double w;
-                if (found)
-                {
-                    w = 0;//искать параболу
-                }
-                else
+                if (!found)
                 {
                     double u_n = u[u.Count - 1];
                     w = b - u_n > u_n - a ? a : b;
+                    u.Add(w);
+                    I.Add(f(w));
+                    double f_min = I.AsQueryable().Min();
+                    int index = I.IndexOf(f_min);
+                    min = u[index];
                 }
-
-                I.Add(f(w));
-                double f_min = I.AsQueryable().Min();
-                min = u[I.IndexOf(f_min)];
+                else
+                    min = w;               
             } while (h > epsilon);
 
             return new Tuple<double, double>(min, f(min));

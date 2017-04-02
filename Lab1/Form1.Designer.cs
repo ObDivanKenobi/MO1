@@ -62,8 +62,7 @@
             // 
             // tabControlMethods
             // 
-            this.tabControlMethods.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.tabControlMethods.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControlMethods.Controls.Add(this.tabPageBisection);
             this.tabControlMethods.Controls.Add(this.tabPageGoldenSection);
@@ -276,9 +275,8 @@
             // 
             // label9
             // 
-            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(12, 154);
+            this.label9.Location = new System.Drawing.Point(12, 140);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(35, 13);
             this.label9.TabIndex = 3;
@@ -286,18 +284,16 @@
             // 
             // textBoxMin
             // 
-            this.textBoxMin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBoxMin.Location = new System.Drawing.Point(42, 151);
+            this.textBoxMin.Location = new System.Drawing.Point(42, 137);
             this.textBoxMin.Name = "textBoxMin";
             this.textBoxMin.ReadOnly = true;
-            this.textBoxMin.Size = new System.Drawing.Size(43, 20);
+            this.textBoxMin.Size = new System.Drawing.Size(94, 20);
             this.textBoxMin.TabIndex = 4;
             // 
             // label10
             // 
-            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(99, 154);
+            this.label10.Location = new System.Drawing.Point(9, 166);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(44, 13);
             this.label10.TabIndex = 3;
@@ -305,18 +301,17 @@
             // 
             // textBoxFmin
             // 
-            this.textBoxFmin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBoxFmin.Location = new System.Drawing.Point(142, 151);
+            this.textBoxFmin.Location = new System.Drawing.Point(52, 163);
             this.textBoxFmin.Name = "textBoxFmin";
             this.textBoxFmin.ReadOnly = true;
-            this.textBoxFmin.Size = new System.Drawing.Size(43, 20);
+            this.textBoxFmin.Size = new System.Drawing.Size(84, 20);
             this.textBoxFmin.TabIndex = 4;
             // 
             // OptimisationMethods
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(710, 199);
+            this.ClientSize = new System.Drawing.Size(710, 551);
             this.Controls.Add(this.textBoxB);
             this.Controls.Add(this.textBoxFmin);
             this.Controls.Add(this.textBoxMin);
@@ -372,6 +367,7 @@
         private System.Windows.Forms.TextBox textBoxMin;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox textBoxFmin;
+        private ZedGraph.ZedGraphControl chart;
     }
 }
 
