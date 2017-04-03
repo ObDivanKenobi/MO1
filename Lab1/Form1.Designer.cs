@@ -54,6 +54,7 @@
             this.textBoxMin = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.textBoxFmin = new System.Windows.Forms.TextBox();
+            this.chart = new ZedGraph.ZedGraphControl();
             this.tabControlMethods.SuspendLayout();
             this.tabPageBisection.SuspendLayout();
             this.tabPageGoldenSection.SuspendLayout();
@@ -307,11 +308,24 @@
             this.textBoxFmin.Size = new System.Drawing.Size(84, 20);
             this.textBoxFmin.TabIndex = 4;
             // 
+            // chart
+            // 
+            this.chart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.chart.IsShowPointValues = false;
+            this.chart.Location = new System.Drawing.Point(142, 136);
+            this.chart.Name = "chart";
+            this.chart.PointValueFormat = "G";
+            this.chart.Size = new System.Drawing.Size(556, 403);
+            this.chart.TabIndex = 5;
+            // 
             // OptimisationMethods
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(710, 551);
+            this.Controls.Add(this.chart);
             this.Controls.Add(this.textBoxB);
             this.Controls.Add(this.textBoxFmin);
             this.Controls.Add(this.textBoxMin);
