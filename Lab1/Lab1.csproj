@@ -33,8 +33,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FunctionsParser">
-      <HintPath>..\..\..\..\..\..\..\..\..\Разработка\FunctionsParser\FunctionsParser\bin\Debug\FunctionsParser.dll</HintPath>
+    <Reference Include="FunctionsParser, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\FunctionsParser.dll</HintPath>
+    </Reference>
+    <Reference Include="Matrix">
+      <HintPath>Libs\Matrix.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

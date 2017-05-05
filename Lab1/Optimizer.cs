@@ -2,18 +2,22 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using MatrixNamespace;
+using System.Text.RegularExpressions;
+using System.Runtime.Serialization;
 
 namespace Lab1
 {
     class Optimizer
     {
+        public delegate double Function(params double[] variables);
         FunctionParser function;
-        Func<double, double> f;
+        Function f;
 
         public Optimizer(FunctionParser func)
         {
             function = func;
-            f = function.Function;
+            f = function.Evaluate;
         }
 
         public Tuple<double, double> BisectionMethod(double a, double b, double delta, double epsilon)
@@ -137,10 +141,175 @@ namespace Lab1
                     min = u[index];
                 }
                 else
-                    min = w;               
+                    min = w;
             } while (h > epsilon);
 
             return new Tuple<double, double>(min, f(min));
         }
+
+        public Tuple<Matrix, double> NewtonsMethod(Matrix x0, double eps, double a = 1, int steps = 100)
+        {
+            int n = function.Variables.Count;
+            FunctionParser[] gradFunctional = new FunctionParser[n];
+            for (int i = 0; i < n; ++i)
+                gradFunctional[i] = function.DifferentiateBy(function.Variables[i]).Optimize();
+
+            FunctionParser[,] HessianFunctional = new FunctionParser[n, n];
+            for (int i = 0; i < n; ++i)
+                for (int j = i; j < n; ++j)
+                {
+                    FunctionParser tmp = function.DifferentiateBy(function.Variables[i]);
+                    tmp = tmp.DifferentiateBy(function.Variables[j]);
+                    tmp = tmp.Optimize();
+                    HessianFunctional[i, j] = HessianFunctional[j, i] = tmp;//function.DifferentiateBy(function.Variables[i]).DifferentiateBy(function.Variables[j]).Optimize();
+                }
+
+            Matrix x = (Matrix)x0.Clone(),
+                   grad = CountGrad(x, gradFunctional),
+                   HessianMatrix;
+
+            while (Norm(grad) >= eps && steps-- > 0)
+            {
+                HessianMatrix = CountHessian(x, HessianFunctional);
+
+                Matrix invertedH;
+                if (!HessianMatrix.TryInvert(out invertedH))
+                    throw new ArgumentException("Ошибка в поиске обратной матрицы!");
+
+                Matrix a_grad = a * grad,
+                       mult = a_grad * invertedH;
+
+                x = x - mult;
+
+                grad = CountGrad(x, gradFunctional);
+            }
+
+            return new Tuple<Matrix, double>(x, f(x.ToVector()));
+        }
+
+        public Tuple<Matrix, double> MillingStepMethod(Matrix x0, double epsilon, double a = 1)
+        {
+            int n = function.Variables.Count;
+            //заполняем градиент
+            FunctionParser[] gradFunctional = new FunctionParser[n];
+            for (int i = 0; i < n; ++i)
+                gradFunctional[i] = function.DifferentiateBy(function.Variables[i]).Optimize();
+
+            //вычисляем градиент в точке x_0
+            Matrix x = (Matrix)x0.Clone(),
+                   grad = CountGrad(x, gradFunctional);
+            double f_x = f(x0.ToVector());
+
+            //пока ||grad f(x_0)|| >= e
+            while (Norm(grad) >= epsilon)
+            {
+                Matrix tmp = x - (a * grad);
+                double f_tmp = f(tmp.ToVector());
+                while (f_tmp >= f_x)
+                {
+                    a = a / 2;
+                    tmp = x - (a * grad);
+                    f_tmp = f(tmp.ToVector());
+                }
+
+                x = tmp;
+                f_x = f_tmp;
+                grad = CountGrad(x, gradFunctional);
+            }
+
+            return new Tuple<Matrix, double>(x, f(x.ToVector()));
+        }
+
+        public Tuple<Matrix, double> SpeedestDescentMethod(Matrix x0, double epsilon, double a = 1)
+        {
+            int n = function.Variables.Count,
+                accuracy = 10;// Regex.Match(epsilon.ToString(), @"(?<=[,])\d+").Value.Count();
+            //заполняем градиент
+            FunctionParser[] gradFunctional = new FunctionParser[n];
+            for (int i = 0; i < n; ++i)
+                gradFunctional[i] = function.DifferentiateBy(function.Variables[i]).Optimize();
+
+            //вычисляем градиент в точке x_0
+            Matrix x = (Matrix)x0.Clone(),
+                   grad = CountGrad(x, gradFunctional);
+
+            //пока ||grad f(x_0)|| >= e
+            while (Norm(grad) >= epsilon)
+            {
+                string func = function.ToString();
+                //заменяем цифры в скобках просто цифрами
+                func = Regex.Replace(func, @"[(](\d+)[)]", "$1");
+                //заменяем переменные x_i на x_i - x * grad_i, чтобы получить функцию одной переменной x
+                for (int i = 0; i < function.Variables.Count; ++i)
+                {
+                    string replacedVariable = function.Variables[i],
+                           //replacement = grad[i] > 0 ? $"{Math.Round(x[i], accuracy)}-{Math.Round(grad[i], accuracy)}a" : $"{Math.Round(x[i], accuracy)}+{Math.Abs(Math.Round(grad[i], accuracy))}a";
+                           replacement = grad[i] > 0 ? $"{x[i]:f10}-{grad[i]:f10}a" : $"{x[i]:f10}+{Math.Abs(grad[i]):f10}a";
+
+                    func = Regex.Replace(func, $@"(?<=[(]){replacedVariable}(?=[)])", replacement);
+                    func = Regex.Replace(func, replacedVariable, $"({replacement})");
+                }
+
+                FunctionParser Ф = new FunctionParser(func);
+                Matrix A = new Matrix(1);
+                A[0] = a;
+                Optimizer support = new Optimizer(Ф);
+                var min = support.NewtonsMethod(A, epsilon);
+
+                x = x - min.Item1[0] * grad;
+                grad = CountGrad(x, gradFunctional);
+            }
+
+            return new Tuple<Matrix, double>(x, f(x.ToVector()));
+        }
+
+        //unsafe
+        Matrix CountGrad(Matrix x, FunctionParser[] gradFunctional)
+        {
+            Matrix grad = new Matrix(1, x.N, 5);
+            for (int i = 0; i < x.N; ++i)
+            {
+                double x_i = gradFunctional[i].Evaluate(x.ToVector());
+                grad[i] = x_i;
+            }
+
+            return grad;
+        }
+
+        //unsafe
+        Matrix CountHessian(Matrix x, FunctionParser[,] HessianFunctional)
+        {
+            Matrix Hessian = new Matrix(x.N);
+            for (int i = 0; i < x.N; ++i)
+                for (int j = i; j < x.N; ++j)
+                {
+                    double value = HessianFunctional[i, j].Evaluate(x.ToVector());
+                    Hessian[i, j] = Hessian[j, i] = value;
+                }
+
+            return Hessian;
+        }
+
+        //unsafe
+        double Norm(Matrix x)
+        {
+            double norm = 0;
+            for (int i = 0; i < x.N; ++i)
+                norm += Math.Pow(x[i], 2);
+
+            return Math.Sqrt(norm);
+        }
+    }
+
+    [Serializable]
+    public class MethodDivergencyException : Exception
+    {
+        public MethodDivergencyException() { }
+
+        public MethodDivergencyException(string message) : base(message) { }
+
+        public MethodDivergencyException(string message, Exception inner) : base(message, inner) { }
+
+        protected MethodDivergencyException(SerializationInfo info, StreamingContext context) : base(info, context) { }
     }
 }
