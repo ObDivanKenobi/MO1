@@ -43,6 +43,12 @@
             this.buttonParabolas = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.textBoxPEpsilon = new System.Windows.Forms.TextBox();
+            this.tabPageNewton = new System.Windows.Forms.TabPage();
+            this.buttonSingledimantionalNewtonsMethod = new System.Windows.Forms.Button();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.textBoxNewtonsX = new System.Windows.Forms.TextBox();
+            this.textBoxNewtonEpsilon = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxFunc = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -58,6 +64,11 @@
             this.tabControlMethods = new System.Windows.Forms.TabControl();
             this.tabPageOneDImentional = new System.Windows.Forms.TabPage();
             this.tabPageMultidimentionalMethods = new System.Windows.Forms.TabPage();
+            this.buttonSpeedestDescent = new System.Windows.Forms.Button();
+            this.textBoxMultidimentionalFx = new System.Windows.Forms.TextBox();
+            this.textBoxMultidimentionalX = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
             this.buttonMillingStepsMethod = new System.Windows.Forms.Button();
             this.buttonNewtonsMethod = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
@@ -66,26 +77,26 @@
             this.dataGridViewVariables = new System.Windows.Forms.DataGridView();
             this.Variable = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tabPageNewton = new System.Windows.Forms.TabPage();
-            this.buttonSingledimantionalNewtonsMethod = new System.Windows.Forms.Button();
-            this.label13 = new System.Windows.Forms.Label();
-            this.textBoxNewtonEpsilon = new System.Windows.Forms.TextBox();
-            this.textBoxNewtonsX = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.textBoxMultidimentionalFx = new System.Windows.Forms.TextBox();
-            this.textBoxMultidimentionalX = new System.Windows.Forms.TextBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.buttonSpeedestDescent = new System.Windows.Forms.Button();
+            this.tabControlMultidimentional = new System.Windows.Forms.TabControl();
+            this.tabPageNewtonsMultidimentional = new System.Windows.Forms.TabPage();
+            this.tabPagePenaltyMethod = new System.Windows.Forms.TabPage();
+            this.label17 = new System.Windows.Forms.Label();
+            this.textBoxPenaltyFunc = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.textBoxC = new System.Windows.Forms.TextBox();
+            this.buttonPenaltyMethod = new System.Windows.Forms.Button();
             this.tabControlOneDimentionalMethods.SuspendLayout();
             this.tabPageBisection.SuspendLayout();
             this.tabPageGoldenSection.SuspendLayout();
             this.tabPageParabols.SuspendLayout();
+            this.tabPageNewton.SuspendLayout();
             this.tabControlMethods.SuspendLayout();
             this.tabPageOneDImentional.SuspendLayout();
             this.tabPageMultidimentionalMethods.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewVariables)).BeginInit();
-            this.tabPageNewton.SuspendLayout();
+            this.tabControlMultidimentional.SuspendLayout();
+            this.tabPageNewtonsMultidimentional.SuspendLayout();
+            this.tabPagePenaltyMethod.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControlOneDimentionalMethods
@@ -245,6 +256,66 @@
             this.textBoxPEpsilon.TabIndex = 1;
             this.textBoxPEpsilon.Leave += new System.EventHandler(this.ReplacingDots);
             // 
+            // tabPageNewton
+            // 
+            this.tabPageNewton.Controls.Add(this.buttonSingledimantionalNewtonsMethod);
+            this.tabPageNewton.Controls.Add(this.label14);
+            this.tabPageNewton.Controls.Add(this.label13);
+            this.tabPageNewton.Controls.Add(this.textBoxNewtonsX);
+            this.tabPageNewton.Controls.Add(this.textBoxNewtonEpsilon);
+            this.tabPageNewton.Location = new System.Drawing.Point(4, 22);
+            this.tabPageNewton.Name = "tabPageNewton";
+            this.tabPageNewton.Size = new System.Drawing.Size(906, 48);
+            this.tabPageNewton.TabIndex = 3;
+            this.tabPageNewton.Text = "Метод Ньютона";
+            this.tabPageNewton.UseVisualStyleBackColor = true;
+            // 
+            // buttonSingledimantionalNewtonsMethod
+            // 
+            this.buttonSingledimantionalNewtonsMethod.Location = new System.Drawing.Point(194, 12);
+            this.buttonSingledimantionalNewtonsMethod.Name = "buttonSingledimantionalNewtonsMethod";
+            this.buttonSingledimantionalNewtonsMethod.Size = new System.Drawing.Size(108, 23);
+            this.buttonSingledimantionalNewtonsMethod.TabIndex = 3;
+            this.buttonSingledimantionalNewtonsMethod.Text = "Искать минимум";
+            this.buttonSingledimantionalNewtonsMethod.UseVisualStyleBackColor = true;
+            this.buttonSingledimantionalNewtonsMethod.Click += new System.EventHandler(this.buttonSingledimantionalNewtonsMethod_Click);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label14.Location = new System.Drawing.Point(96, 14);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(46, 18);
+            this.label14.TabIndex = 6;
+            this.label14.Text = "x_0 =";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label13.Location = new System.Drawing.Point(9, 14);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(28, 18);
+            this.label13.TabIndex = 6;
+            this.label13.Text = "ε =";
+            // 
+            // textBoxNewtonsX
+            // 
+            this.textBoxNewtonsX.Location = new System.Drawing.Point(142, 14);
+            this.textBoxNewtonsX.Name = "textBoxNewtonsX";
+            this.textBoxNewtonsX.Size = new System.Drawing.Size(43, 20);
+            this.textBoxNewtonsX.TabIndex = 2;
+            this.textBoxNewtonsX.Leave += new System.EventHandler(this.ReplacingDots);
+            // 
+            // textBoxNewtonEpsilon
+            // 
+            this.textBoxNewtonEpsilon.Location = new System.Drawing.Point(39, 14);
+            this.textBoxNewtonEpsilon.Name = "textBoxNewtonEpsilon";
+            this.textBoxNewtonEpsilon.Size = new System.Drawing.Size(43, 20);
+            this.textBoxNewtonEpsilon.TabIndex = 1;
+            this.textBoxNewtonEpsilon.Leave += new System.EventHandler(this.ReplacingDots);
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -389,17 +460,15 @@
             // 
             // tabPageMultidimentionalMethods
             // 
-            this.tabPageMultidimentionalMethods.Controls.Add(this.buttonSpeedestDescent);
+            this.tabPageMultidimentionalMethods.Controls.Add(this.tabControlMultidimentional);
             this.tabPageMultidimentionalMethods.Controls.Add(this.textBoxMultidimentionalFx);
             this.tabPageMultidimentionalMethods.Controls.Add(this.textBoxMultidimentionalX);
-            this.tabPageMultidimentionalMethods.Controls.Add(this.label15);
-            this.tabPageMultidimentionalMethods.Controls.Add(this.label16);
-            this.tabPageMultidimentionalMethods.Controls.Add(this.buttonMillingStepsMethod);
-            this.tabPageMultidimentionalMethods.Controls.Add(this.buttonNewtonsMethod);
             this.tabPageMultidimentionalMethods.Controls.Add(this.label12);
             this.tabPageMultidimentionalMethods.Controls.Add(this.textBoxEpsilonMultidimentional);
+            this.tabPageMultidimentionalMethods.Controls.Add(this.label15);
             this.tabPageMultidimentionalMethods.Controls.Add(this.label11);
             this.tabPageMultidimentionalMethods.Controls.Add(this.dataGridViewVariables);
+            this.tabPageMultidimentionalMethods.Controls.Add(this.label16);
             this.tabPageMultidimentionalMethods.Location = new System.Drawing.Point(4, 22);
             this.tabPageMultidimentionalMethods.Name = "tabPageMultidimentionalMethods";
             this.tabPageMultidimentionalMethods.Padding = new System.Windows.Forms.Padding(3);
@@ -410,9 +479,53 @@
             this.tabPageMultidimentionalMethods.Enter += new System.EventHandler(this.tabPageMultidimantionalMethods_Enter);
             this.tabPageMultidimentionalMethods.Leave += new System.EventHandler(this.tabPageMultidimantionalMethods_Enter);
             // 
+            // buttonSpeedestDescent
+            // 
+            this.buttonSpeedestDescent.Location = new System.Drawing.Point(319, 6);
+            this.buttonSpeedestDescent.Name = "buttonSpeedestDescent";
+            this.buttonSpeedestDescent.Size = new System.Drawing.Size(187, 23);
+            this.buttonSpeedestDescent.TabIndex = 4;
+            this.buttonSpeedestDescent.Text = "Метод наискорейшего спуска";
+            this.buttonSpeedestDescent.UseVisualStyleBackColor = true;
+            this.buttonSpeedestDescent.Click += new System.EventHandler(this.buttonSpeedestDescentMethod_Click);
+            // 
+            // textBoxMultidimentionalFx
+            // 
+            this.textBoxMultidimentionalFx.Location = new System.Drawing.Point(215, 202);
+            this.textBoxMultidimentionalFx.Name = "textBoxMultidimentionalFx";
+            this.textBoxMultidimentionalFx.ReadOnly = true;
+            this.textBoxMultidimentionalFx.Size = new System.Drawing.Size(84, 20);
+            this.textBoxMultidimentionalFx.TabIndex = 11;
+            // 
+            // textBoxMultidimentionalX
+            // 
+            this.textBoxMultidimentionalX.Location = new System.Drawing.Point(205, 176);
+            this.textBoxMultidimentionalX.Name = "textBoxMultidimentionalX";
+            this.textBoxMultidimentionalX.ReadOnly = true;
+            this.textBoxMultidimentionalX.Size = new System.Drawing.Size(711, 20);
+            this.textBoxMultidimentionalX.TabIndex = 12;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(175, 205);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(44, 13);
+            this.label15.TabIndex = 9;
+            this.label15.Text = "f(min) = ";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(175, 179);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(35, 13);
+            this.label16.TabIndex = 10;
+            this.label16.Text = "min = ";
+            // 
             // buttonMillingStepsMethod
             // 
-            this.buttonMillingStepsMethod.Location = new System.Drawing.Point(432, 16);
+            this.buttonMillingStepsMethod.Location = new System.Drawing.Point(154, 6);
             this.buttonMillingStepsMethod.Name = "buttonMillingStepsMethod";
             this.buttonMillingStepsMethod.Size = new System.Drawing.Size(159, 23);
             this.buttonMillingStepsMethod.TabIndex = 3;
@@ -422,7 +535,7 @@
             // 
             // buttonNewtonsMethod
             // 
-            this.buttonNewtonsMethod.Location = new System.Drawing.Point(284, 17);
+            this.buttonNewtonsMethod.Location = new System.Drawing.Point(6, 6);
             this.buttonNewtonsMethod.Name = "buttonNewtonsMethod";
             this.buttonNewtonsMethod.Size = new System.Drawing.Size(142, 23);
             this.buttonNewtonsMethod.TabIndex = 2;
@@ -490,109 +603,85 @@
             this.Value.Name = "Value";
             this.Value.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
-            // tabPageNewton
+            // tabControlMultidimentional
             // 
-            this.tabPageNewton.Controls.Add(this.buttonSingledimantionalNewtonsMethod);
-            this.tabPageNewton.Controls.Add(this.label14);
-            this.tabPageNewton.Controls.Add(this.label13);
-            this.tabPageNewton.Controls.Add(this.textBoxNewtonsX);
-            this.tabPageNewton.Controls.Add(this.textBoxNewtonEpsilon);
-            this.tabPageNewton.Location = new System.Drawing.Point(4, 22);
-            this.tabPageNewton.Name = "tabPageNewton";
-            this.tabPageNewton.Size = new System.Drawing.Size(906, 48);
-            this.tabPageNewton.TabIndex = 3;
-            this.tabPageNewton.Text = "Метод Ньютона";
-            this.tabPageNewton.UseVisualStyleBackColor = true;
+            this.tabControlMultidimentional.Controls.Add(this.tabPageNewtonsMultidimentional);
+            this.tabControlMultidimentional.Controls.Add(this.tabPagePenaltyMethod);
+            this.tabControlMultidimentional.Location = new System.Drawing.Point(178, 45);
+            this.tabControlMultidimentional.Name = "tabControlMultidimentional";
+            this.tabControlMultidimentional.SelectedIndex = 0;
+            this.tabControlMultidimentional.Size = new System.Drawing.Size(742, 125);
+            this.tabControlMultidimentional.TabIndex = 13;
             // 
-            // buttonSingledimantionalNewtonsMethod
+            // tabPageNewtonsMultidimentional
             // 
-            this.buttonSingledimantionalNewtonsMethod.Location = new System.Drawing.Point(194, 12);
-            this.buttonSingledimantionalNewtonsMethod.Name = "buttonSingledimantionalNewtonsMethod";
-            this.buttonSingledimantionalNewtonsMethod.Size = new System.Drawing.Size(108, 23);
-            this.buttonSingledimantionalNewtonsMethod.TabIndex = 3;
-            this.buttonSingledimantionalNewtonsMethod.Text = "Искать минимум";
-            this.buttonSingledimantionalNewtonsMethod.UseVisualStyleBackColor = true;
-            this.buttonSingledimantionalNewtonsMethod.Click += new System.EventHandler(this.buttonSingledimantionalNewtonsMethod_Click);
+            this.tabPageNewtonsMultidimentional.Controls.Add(this.buttonMillingStepsMethod);
+            this.tabPageNewtonsMultidimentional.Controls.Add(this.buttonNewtonsMethod);
+            this.tabPageNewtonsMultidimentional.Controls.Add(this.buttonSpeedestDescent);
+            this.tabPageNewtonsMultidimentional.Location = new System.Drawing.Point(4, 22);
+            this.tabPageNewtonsMultidimentional.Name = "tabPageNewtonsMultidimentional";
+            this.tabPageNewtonsMultidimentional.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageNewtonsMultidimentional.Size = new System.Drawing.Size(734, 330);
+            this.tabPageNewtonsMultidimentional.TabIndex = 0;
+            this.tabPageNewtonsMultidimentional.Text = "Метод Ньютона и градиентные методы";
+            this.tabPageNewtonsMultidimentional.UseVisualStyleBackColor = true;
             // 
-            // label13
+            // tabPagePenaltyMethod
             // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label13.Location = new System.Drawing.Point(9, 14);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(28, 18);
-            this.label13.TabIndex = 6;
-            this.label13.Text = "ε =";
+            this.tabPagePenaltyMethod.Controls.Add(this.buttonPenaltyMethod);
+            this.tabPagePenaltyMethod.Controls.Add(this.textBoxC);
+            this.tabPagePenaltyMethod.Controls.Add(this.label18);
+            this.tabPagePenaltyMethod.Controls.Add(this.textBoxPenaltyFunc);
+            this.tabPagePenaltyMethod.Controls.Add(this.label17);
+            this.tabPagePenaltyMethod.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePenaltyMethod.Name = "tabPagePenaltyMethod";
+            this.tabPagePenaltyMethod.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPagePenaltyMethod.Size = new System.Drawing.Size(734, 99);
+            this.tabPagePenaltyMethod.TabIndex = 1;
+            this.tabPagePenaltyMethod.Text = "Метод штрафных функций";
+            this.tabPagePenaltyMethod.UseVisualStyleBackColor = true;
             // 
-            // textBoxNewtonEpsilon
+            // label17
             // 
-            this.textBoxNewtonEpsilon.Location = new System.Drawing.Point(39, 14);
-            this.textBoxNewtonEpsilon.Name = "textBoxNewtonEpsilon";
-            this.textBoxNewtonEpsilon.Size = new System.Drawing.Size(43, 20);
-            this.textBoxNewtonEpsilon.TabIndex = 1;
-            this.textBoxNewtonEpsilon.Leave += new System.EventHandler(this.ReplacingDots);
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(6, 14);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(108, 13);
+            this.label17.TabIndex = 0;
+            this.label17.Text = "Штрафная функция:";
             // 
-            // textBoxNewtonsX
+            // textBoxPenaltyFunc
             // 
-            this.textBoxNewtonsX.Location = new System.Drawing.Point(142, 14);
-            this.textBoxNewtonsX.Name = "textBoxNewtonsX";
-            this.textBoxNewtonsX.Size = new System.Drawing.Size(43, 20);
-            this.textBoxNewtonsX.TabIndex = 2;
-            this.textBoxNewtonsX.Leave += new System.EventHandler(this.ReplacingDots);
+            this.textBoxPenaltyFunc.Location = new System.Drawing.Point(120, 11);
+            this.textBoxPenaltyFunc.Name = "textBoxPenaltyFunc";
+            this.textBoxPenaltyFunc.Size = new System.Drawing.Size(602, 20);
+            this.textBoxPenaltyFunc.TabIndex = 1;
             // 
-            // label14
+            // label18
             // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label14.Location = new System.Drawing.Point(96, 14);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(46, 18);
-            this.label14.TabIndex = 6;
-            this.label14.Text = "x_0 =";
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(6, 40);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(17, 13);
+            this.label18.TabIndex = 0;
+            this.label18.Text = "C:";
             // 
-            // textBoxMultidimentionalFx
+            // textBoxC
             // 
-            this.textBoxMultidimentionalFx.Location = new System.Drawing.Point(231, 92);
-            this.textBoxMultidimentionalFx.Name = "textBoxMultidimentionalFx";
-            this.textBoxMultidimentionalFx.ReadOnly = true;
-            this.textBoxMultidimentionalFx.Size = new System.Drawing.Size(84, 20);
-            this.textBoxMultidimentionalFx.TabIndex = 11;
+            this.textBoxC.Location = new System.Drawing.Point(23, 37);
+            this.textBoxC.Name = "textBoxC";
+            this.textBoxC.Size = new System.Drawing.Size(123, 20);
+            this.textBoxC.TabIndex = 1;
             // 
-            // textBoxMultidimentionalX
+            // buttonPenaltyMethod
             // 
-            this.textBoxMultidimentionalX.Location = new System.Drawing.Point(221, 66);
-            this.textBoxMultidimentionalX.Name = "textBoxMultidimentionalX";
-            this.textBoxMultidimentionalX.ReadOnly = true;
-            this.textBoxMultidimentionalX.Size = new System.Drawing.Size(699, 20);
-            this.textBoxMultidimentionalX.TabIndex = 12;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(191, 95);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(44, 13);
-            this.label15.TabIndex = 9;
-            this.label15.Text = "f(min) = ";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(191, 69);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(35, 13);
-            this.label16.TabIndex = 10;
-            this.label16.Text = "min = ";
-            // 
-            // buttonSpeedestDescent
-            // 
-            this.buttonSpeedestDescent.Location = new System.Drawing.Point(597, 16);
-            this.buttonSpeedestDescent.Name = "buttonSpeedestDescent";
-            this.buttonSpeedestDescent.Size = new System.Drawing.Size(187, 23);
-            this.buttonSpeedestDescent.TabIndex = 4;
-            this.buttonSpeedestDescent.Text = "Метод наискорейшего спуска";
-            this.buttonSpeedestDescent.UseVisualStyleBackColor = true;
-            this.buttonSpeedestDescent.Click += new System.EventHandler(this.buttonSpeedestDescentMethod_Click);
+            this.buttonPenaltyMethod.Location = new System.Drawing.Point(9, 63);
+            this.buttonPenaltyMethod.Name = "buttonPenaltyMethod";
+            this.buttonPenaltyMethod.Size = new System.Drawing.Size(204, 23);
+            this.buttonPenaltyMethod.TabIndex = 2;
+            this.buttonPenaltyMethod.Text = "Метод штрафных функций";
+            this.buttonPenaltyMethod.UseVisualStyleBackColor = true;
+            this.buttonPenaltyMethod.Click += new System.EventHandler(this.buttonPenaltyMethod_Click);
             // 
             // OptimisationMethods
             // 
@@ -612,14 +701,18 @@
             this.tabPageGoldenSection.PerformLayout();
             this.tabPageParabols.ResumeLayout(false);
             this.tabPageParabols.PerformLayout();
+            this.tabPageNewton.ResumeLayout(false);
+            this.tabPageNewton.PerformLayout();
             this.tabControlMethods.ResumeLayout(false);
             this.tabPageOneDImentional.ResumeLayout(false);
             this.tabPageOneDImentional.PerformLayout();
             this.tabPageMultidimentionalMethods.ResumeLayout(false);
             this.tabPageMultidimentionalMethods.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewVariables)).EndInit();
-            this.tabPageNewton.ResumeLayout(false);
-            this.tabPageNewton.PerformLayout();
+            this.tabControlMultidimentional.ResumeLayout(false);
+            this.tabPageNewtonsMultidimentional.ResumeLayout(false);
+            this.tabPagePenaltyMethod.ResumeLayout(false);
+            this.tabPagePenaltyMethod.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -676,6 +769,14 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Button buttonSpeedestDescent;
+        private System.Windows.Forms.TabControl tabControlMultidimentional;
+        private System.Windows.Forms.TabPage tabPageNewtonsMultidimentional;
+        private System.Windows.Forms.TabPage tabPagePenaltyMethod;
+        private System.Windows.Forms.TextBox textBoxPenaltyFunc;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.TextBox textBoxC;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Button buttonPenaltyMethod;
     }
 }
 

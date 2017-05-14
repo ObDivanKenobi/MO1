@@ -17,7 +17,8 @@ namespace Lab1
     public partial class OptimisationMethods : Form
     {
         //x1^3+3x1*x2^2-15x1-12x2 - хорошая функция
-        //x^3+3x*y^2-15x-12y - хорошая функция
+        //x^3+3x*y^2-15x-12y - хорошая функция для многомерных методов кроме штрафных
+        //x^2+6x+y^2+9y, штраф - 1/x+1/y, x_0 = (1;0,5)
         static Regex doubleTemplate = new Regex(@"^(\d+).(\d+)$");
 
         double a, b;
@@ -212,7 +213,16 @@ namespace Lab1
 
             MatrixNamespace.Matrix x_0 = new MatrixNamespace.Matrix(variables.Count(), variables);
             Optimizer opt = new Optimizer(parser);
-            var result = opt.NewtonsMethod(x_0, epsilon);
+            Tuple<MatrixNamespace.Matrix, double> result;
+            try
+            {
+                result = opt.NewtonsMethod(x_0, epsilon);
+            }
+            catch (MethodDivergencyException ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
             textBoxMultidimentionalX.Text = $"{ result.Item1:F5}";
             textBoxMultidimentionalFx.Text = $"{ result.Item2:F5}";
         }
@@ -238,7 +248,16 @@ namespace Lab1
 
             MatrixNamespace.Matrix x_0 = new MatrixNamespace.Matrix(variables.Count(), variables);
             Optimizer opt = new Optimizer(parser);
-            var result = opt.SpeedestDescentMethod(x_0, epsilon);
+            Tuple<MatrixNamespace.Matrix, double> result;
+            try
+            {
+                result = opt.SpeedestDescentMethod(x_0, epsilon);
+            }
+            catch (MethodDivergencyException ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
             textBoxMultidimentionalX.Text = $"{ result.Item1:F5}";
             textBoxMultidimentionalFx.Text = $"{ result.Item2:F5}";
         }
@@ -285,7 +304,65 @@ namespace Lab1
 
             MatrixNamespace.Matrix x_0 = new MatrixNamespace.Matrix(variables.Count(), variables);
             Optimizer opt = new Optimizer(parser);
-            var result = opt.MillingStepMethod(x_0, epsilon);
+            Tuple<MatrixNamespace.Matrix, double> result;
+            try
+            {
+                result = opt.MillingStepMethod(x_0, epsilon);
+            }
+            catch (MethodDivergencyException ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
+
+            textBoxMultidimentionalX.Text = $"{ result.Item1:F5}";
+            textBoxMultidimentionalFx.Text = $"{ result.Item2:F5}";
+        }
+
+        private void buttonPenaltyMethod_Click(object sender, EventArgs e)
+        {
+            int error;
+            double[] variables;
+            if (!TryGetMultidimentionalPoint(out variables, out error))
+            {
+                MessageBox.Show($"Неверное значение переменной в строке {error}!");
+                return;
+            }
+            MatrixNamespace.Matrix x_0 = new MatrixNamespace.Matrix(variables.Count(), variables);
+
+            double epsilon;
+            if (!double.TryParse(textBoxEpsilonMultidimentional.Text, out epsilon))
+            {
+                MessageBox.Show("Неверное значение ε!");
+                return;
+            }
+
+            double c;
+            if (!double.TryParse(textBoxC.Text, out c))
+            {
+                MessageBox.Show("Неверное значение c!");
+                return;
+            }
+
+            FunctionParser penaltyFunc;
+            try { penaltyFunc = new FunctionParser(textBoxPenaltyFunc.Text); }
+            catch (Exception)
+            {
+                MessageBox.Show("Не удалось преобразовать строку в функцию, проверьте ввод.");
+                return;
+            }
+
+            Optimizer opt = new Optimizer(parser);
+            Tuple<MatrixNamespace.Matrix, double> result;
+            try
+            {
+                result = opt.PenaltyMethod(x_0, penaltyFunc, epsilon, c);
+            }
+            catch (MethodDivergencyException ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
             textBoxMultidimentionalX.Text = $"{ result.Item1:F5}";
             textBoxMultidimentionalFx.Text = $"{ result.Item2:F5}";
         }

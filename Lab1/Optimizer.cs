@@ -152,7 +152,7 @@ namespace Lab1
             int n = function.Variables.Count;
             FunctionParser[] gradFunctional = new FunctionParser[n];
             for (int i = 0; i < n; ++i)
-                gradFunctional[i] = function.DifferentiateBy(function.Variables[i]).Optimize();
+                gradFunctional[i] = function.DifferentiateBy(function.Variables[i]);//.Optimize();
 
             FunctionParser[,] HessianFunctional = new FunctionParser[n, n];
             for (int i = 0; i < n; ++i)
@@ -161,14 +161,15 @@ namespace Lab1
                     FunctionParser tmp = function.DifferentiateBy(function.Variables[i]);
                     tmp = tmp.DifferentiateBy(function.Variables[j]);
                     tmp = tmp.Optimize();
-                    HessianFunctional[i, j] = HessianFunctional[j, i] = tmp;//function.DifferentiateBy(function.Variables[i]).DifferentiateBy(function.Variables[j]).Optimize();
+                    HessianFunctional[i, j] = HessianFunctional[j, i] = tmp; //function.DifferentiateBy(function.Variables[i]).DifferentiateBy(function.Variables[j]).Optimize();
                 }
 
             Matrix x = (Matrix)x0.Clone(),
                    grad = CountGrad(x, gradFunctional),
                    HessianMatrix;
 
-            while (Norm(grad) >= eps && steps-- > 0)
+            int step = steps;
+            while (Norm(grad) >= eps && step-- > 0)
             {
                 HessianMatrix = CountHessian(x, HessianFunctional);
 
@@ -184,10 +185,13 @@ namespace Lab1
                 grad = CountGrad(x, gradFunctional);
             }
 
+            if (step < 0)
+                throw new MethodDivergencyException($"Методу не удалось найти решение за {steps} шагов.");
+
             return new Tuple<Matrix, double>(x, f(x.ToVector()));
         }
 
-        public Tuple<Matrix, double> MillingStepMethod(Matrix x0, double epsilon, double a = 1)
+        public Tuple<Matrix, double> MillingStepMethod(Matrix x0, double epsilon, double a = 1, int steps = 100)
         {
             int n = function.Variables.Count;
             //заполняем градиент
@@ -200,13 +204,17 @@ namespace Lab1
                    grad = CountGrad(x, gradFunctional);
             double f_x = f(x0.ToVector());
 
+            int step = steps;
             //пока ||grad f(x_0)|| >= e
-            while (Norm(grad) >= epsilon)
+            while (Norm(grad) >= epsilon && step-- > 0)
             {
                 Matrix tmp = x - (a * grad);
                 double f_tmp = f(tmp.ToVector());
                 while (f_tmp >= f_x)
                 {
+                    if (a == 0)
+                        throw new MethodDivergencyException("Метод расходится!");
+
                     a = a / 2;
                     tmp = x - (a * grad);
                     f_tmp = f(tmp.ToVector());
@@ -217,10 +225,13 @@ namespace Lab1
                 grad = CountGrad(x, gradFunctional);
             }
 
+            if (step < 0)
+                throw new MethodDivergencyException($"Методу не удалось найти решение за {steps} шагов.");
+
             return new Tuple<Matrix, double>(x, f(x.ToVector()));
         }
 
-        public Tuple<Matrix, double> SpeedestDescentMethod(Matrix x0, double epsilon, double a = 1)
+        public Tuple<Matrix, double> SpeedestDescentMethod(Matrix x0, double epsilon, double a = 1, int steps = 100)
         {
             int n = function.Variables.Count,
                 accuracy = 10;// Regex.Match(epsilon.ToString(), @"(?<=[,])\d+").Value.Count();
@@ -233,8 +244,9 @@ namespace Lab1
             Matrix x = (Matrix)x0.Clone(),
                    grad = CountGrad(x, gradFunctional);
 
+            int step = steps;
             //пока ||grad f(x_0)|| >= e
-            while (Norm(grad) >= epsilon)
+            while (Norm(grad) >= epsilon && step-- > 0)
             {
                 string func = function.ToString();
                 //заменяем цифры в скобках просто цифрами
@@ -260,7 +272,34 @@ namespace Lab1
                 grad = CountGrad(x, gradFunctional);
             }
 
+            if (step < 0)
+                throw new MethodDivergencyException($"Методу не удалось найти решение за {steps} шагов.");
+
             return new Tuple<Matrix, double>(x, f(x.ToVector()));
+        }
+
+        public Tuple<Matrix, double> PenaltyMethod(Matrix x0, FunctionParser PenaltyFunc, double epsilon, double c)
+        {
+            double r = 1;
+            Matrix min = (Matrix)x0.Clone();
+
+            do
+            {
+                FunctionParser P = function + (r * PenaltyFunc);
+                Optimizer tmp = new Optimizer(P);
+                try
+                {
+                    min = tmp.SpeedestDescentMethod(min, epsilon).Item1;
+                }
+                catch (MethodDivergencyException)
+                {
+                    throw new MethodDivergencyException("Метод расходится!");
+                }
+
+                r = r / c;
+            } while (r > epsilon );
+
+            return new Tuple<Matrix, double>(min, f(min.ToVector()));
         }
 
         //unsafe
